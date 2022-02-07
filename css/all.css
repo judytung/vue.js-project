@@ -1,0 +1,20 @@
+img {
+    object-fit: contain;
+    max-width: 100%;
+}
+  
+.primary-image {
+  height: 300px;
+}
+
+.images {
+  height: 150px;
+}
+
+.deleteIcon {
+  vertical-align: middle;
+  color: black;
+}
+.deleteIcon:hover {
+  color: brown;
+}
