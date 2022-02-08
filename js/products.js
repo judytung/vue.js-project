@@ -1,3 +1,5 @@
+import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.9/vue.esm-browser.js';
+import pagination from './pagination.js';
 const apiUrl = 'https://vue3-course-api.hexschool.io/v2'; // 加入站點
 const path = 'judyhexschoolforvue'; // 加入個人 API Path
 const  token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
@@ -9,7 +11,10 @@ const  token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*
 let productModal = {};
 let removeProductModal = {};
 // 建立 Vue 元件
-const app = {
+const app = createApp({
+    components: {
+        pagination
+    },
     data () {
         return {
             products:[],
@@ -21,8 +26,8 @@ const app = {
         }
     },
     methods : {
-        getProducts () {
-            axios.get(`${apiUrl}/api/${path}/admin/products`)
+        getProducts (page = 1) { // 參數預設值 query，預設 page 是第一頁，沒有預設的話會變 undefined
+            axios.get(`${apiUrl}/api/${path}/admin/products/?page=${page}`)
             .then((res) => {
             // console.log(res.data);
             this.products = res.data.products;
@@ -108,5 +113,5 @@ const app = {
     productModal = new bootstrap.Modal(document.getElementById('productModal'));
     removeProductModal = new bootstrap.Modal(document.getElementById('removeProductModal'));
    }
-}
-Vue.createApp(app).mount('#app')
+});
+app.mount('#app')

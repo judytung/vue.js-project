@@ -1,9 +1,9 @@
-
+import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.9/vue.esm-browser.js';
 const url = 'https://vue3-course-api.hexschool.io/v2'; // 加入站點
 const path = 'judyhexschoolforvue'; // 加入個人 API Path
 
 // 建立 Vue 元件
-const app = {
+const app = createApp({
     data() {
         return {
             user:{
@@ -30,9 +30,9 @@ const app = {
             })
         },
     },
-}
+});
 
 
-Vue.createApp(app).mount('#app'); //  定義 Vue 元件，使用 mount 指定掛載到 app 這個 id 
+app.mount('#app'); //  定義 Vue 元件，使用 mount 指定掛載到 app 這個 id 
 
 
