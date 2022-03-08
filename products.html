@@ -13,7 +13,7 @@
   <div id="app">
     <div class="container">
       <div class="text-end mt-4">
-        <button class="btn btn-primary" type="button" @click="openModal('new')" data-bs-toggle="modal" data-bs-target="#productModal">
+        <button class="btn btn-primary" type="button" @click="openModal('isNew')">
           建立新的產品
         </button>
       </div>
@@ -69,12 +69,12 @@
     <!--產品元件-->
     <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
           aria-hidden="true">
-          <product-modal :temp-products="tempProducts" @get-products="getProducts" :is-new="isNew"></product-modal> <!--內層為 props 的 tempProducts，但因為規定不能大寫，需改小寫加上 - -->
+          <product-modal :temp-products="tempProducts" @get-products="getProducts" :is-new="isNew" :pagination="pagination.current_page"></product-modal> <!--內層為 props 的 tempProducts，但因為規定不能大寫，需改小寫加上 - -->
     </div>
     <!--產品刪除元件-->
     <div id="removeProductModal" ref="removeProductModal" class="modal fade" tabindex="-1"
           aria-labelledby="removeProductModalLabel" aria-hidden="true">
-          <remove-product-modal :temp-products="tempProducts" @get-products="getProducts"></remove-product-modal>
+          <remove-product-modal :temp-products="tempProducts" @get-products="getProducts" :pagination="pagination.current_page"></remove-product-modal>
     </div>
     <!-- Modal -->
   </div>
@@ -84,7 +84,8 @@
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
             <h5 id="productModalLabel" class="modal-title">
-              <span>新增產品</span>
+              <span v-if="isNew">新增產品</span>
+              <span v-else></span>
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
@@ -109,6 +110,12 @@
                     <!--|| 邏輯運算子的使用，當左邊為真值時就會直接回傳，否則就回傳右邊，所以當陣列長度不為 0 時，就會判斷最後一格欄位是否有文字-->
                     <button v-if="!tempProducts.imagesUrl.length || tempProducts.imagesUrl[tempProducts.imagesUrl.length - 1]" type="button" class="btn btn-primary w-100" @click="tempProducts.imagesUrl.push('')">新增</button> <!--點擊新增按鈕會觸發方法使用 push 新增到陣列裡，且為字串形式-->
                     <button type="button" v-else class="btn btn-outline-danger w-100 mt-2" @click="tempProducts.imagesUrl.pop()">刪除</button> <!--pop 為刪除最後一個-->
+                  </div>
+                  <div v-else>
+                    <button class="btn btn-outline-primary btn-sm d-block w-100"
+                      >
+                      新增圖片
+                    </button>
                   </div>
                 </div>
               </div>

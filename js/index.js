@@ -17,15 +17,12 @@ const app = createApp({
             axios.post(`${url}/admin/signin`, this.user)
             // 成功結果
             .then((res) => {
-            console.log(res);
             const { token, expired } = res.data; // 解構寫法
-            console.log(token, expired);
             document.cookie = `hexToken=${token}; expires=${new Date(expired)};`;
             window.location = 'products.html';
             })
             // 失敗結果
             .catch((err) => {
-            console.dir(err);
             alert(err.data.message); // 登入錯誤提示
             })
         },
